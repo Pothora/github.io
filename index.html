@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p/dev | C++ и Java</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --bg-card: #111111;
+            --border: #1f1f1f;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            backdrop-filter: blur(12px);
+            background: rgba(10,10,10,0.8);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #ccc;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0 60px;
+        }
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+        .hero-text {
+            flex: 1;
+        }
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #90cdf4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 32px;
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: #ddd;
+        }
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        section {
+            padding: 70px 0;
+            border-top: 1px solid var(--border);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .skills-grid, .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .skill-card, .project-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+        .skill-card:hover, .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+        .skill-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .project-desc {
+            color: #aaa;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            background: #1e1e1e;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+        }
+        .contact-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+        }
+        .contact-info, .contact-form {
+            flex: 1;
+        }
+        .contact-info p {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: white;
+            font-family: inherit;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        button {
+            background: var(--primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 32px;
+            border-top: 1px solid var(--border);
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .hero-text h1 { font-size: 2.2rem; }
+            .nav-links { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="logo">p/dev</div>
+        <div class="nav-links">
+            <a href="#home">главная</a>
+            <a href="#skills">что умею</a>
+            <a href="#projects">проекты</a>
+            <a href="#contact">контакты</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>пишу на C++ и Java</h1>
+                <p>создаю утилиты, автоматизирую рутину, помогаю с кодом. без понтов, просто делаю.</p>
+                <div>
+                    <a href="#projects" class="btn btn-primary">👇 посмотреть проекты</a>
+                    <a href="#contact" class="btn btn-outline">📬 написать</a>
+                </div>
+            </div>
+            <div style="background: #111; border-radius: 24px; padding: 24px; border:1px solid #1f1f1f;">
+                <div><span style="color:#3b82f6; font-weight:700;">C++</span> — автокликеры, парсеры, консольные тулзы</div>
+                <div style="margin-top: 16px;"><span style="color:#3b82f6; font-weight:700;">Java</span> — бэкенд, телеграм-боты, десктоп приложения</div>
+                <div style="margin-top: 16px;">🔧 также WinAPI, STL, многопоточка</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">⚙️ что могу для тебя сделать</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-robot"></i></div>
+                    <h3>автоматизация</h3>
+                    <p>автокликеры, макросы, боты для игр и рабочих задач. эмуляция нажатий.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-terminal"></i></div>
+                    <h3>утилиты под консоль</h3>
+                    <p>генераторы паролей, таймеры, органайзеры файлов, калькуляторы.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-java"></i></div>
+                    <h3>java-боты и приложения</h3>
+                    <p>телеграм-боты, простые серверные штуки, десктоп на Swing/JavaFX.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">📦 проекты (с открытым кодом)</h2>
+            <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">✉️ давай обсудим твою задачу</h2>
+            <div class="contact-flex">
+                <div class="contact-info">
+                    <p><i class="fab fa-telegram"></i> <strong>@Pothora</strong> — самый быстрый ответ</p>
+                    <p><i class="fab fa-github"></i> <strong>github.com/Pothora</strong></p>
+                    <p><i class="fas fa-envelope"></i> <strong>Pothora@hotmail.com</strong></p>
+                    <p style="font-size:0.9rem;">отвечаю обычно в течение пары часов, если не сплю 😅</p>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <input type="text" id="name" placeholder="как тебя зовут?" required>
+                        <input type="text" id="contact" placeholder="telegram / почта" required style="margin-top: 12px;">
+                        <textarea id="message" rows="4" placeholder="кратко опиши, что нужно" required style="margin-top: 12px;"></textarea>
+                        <button type="submit" style="margin-top: 20px;">отправить →</button>
+                    </form>
+                    <p id="formStatus" style="margin-top: 12px; color:#3b82f6;"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2026 p/dev — код без пыли и без понтов.</p>
+    <p>Всего просмотров: <span id="visitCounter">...</span></p>
+</footer>
+
+<script>
+    // ========== НАСТРОЙКИ TELEGRAM ==========
+    const BOT_TOKEN = '8247436996:AAGK2uOxPzSaMAFnkeT43HW_pjQPFMTo4lI';
+    const CHAT_ID = '6579653460';
+    // ========================================
+
+    async function sendTelegramMessage(text) {
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
+            });
+        } catch(e) { console.error('Ошибка отправки в Telegram', e); }
+    }
+
+    // Уведомление о новом посетителе (один раз на сессию)
+    if (!localStorage.getItem('pdev_visited')) {
+        (async () => {
+            try {
+                const ipRes = await fetch('https://ipapi.co/json/');
+                const ipData = await ipRes.json();
+                const ip = ipData.ip || 'неизвестно';
+                const country = ipData.country_name || 'неизвестно';
+                const city = ipData.city || 'неизвестно';
+                const userAgent = navigator.userAgent.substring(0, 100);
+                const page = window.location.pathname;
+                const time = new Date().toLocaleString();
+                const message = `<b>👤 Новый посетитель</b>\n🕒 ${time}\n🌍 ${country}, ${city}\n📡 IP: ${ip}\n📄 Страница: ${page}\n💻 UserAgent: ${userAgent}`;
+                await sendTelegramMessage(message);
+                localStorage.setItem('pdev_visited', 'true');
+            } catch(e) { console.error(e); }
+        })();
+    }
+
+    // Счётчик просмотров
+    async function updateCounter() {
+        const url = 'https://api.countapi.xyz/hit/pdev/visits';
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            const counterSpan = document.getElementById('visitCounter');
+            if (counterSpan) counterSpan.innerText = data.value;
+        } catch(e) { console.error('Счётчик', e); }
+    }
+    updateCounter();
+
+    // Обработка формы
+    const form = document.getElementById('contactForm');
+    const statusMsg = document.getElementById('formStatus');
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const contact = document.getElementById('contact').value.trim();
+            const messageText = document.getElementById('message').value.trim();
+            if (!name || !contact || !messageText) {
+                statusMsg.innerText = '❌ заполни все поля, бро';
+                return;
+            }
+            statusMsg.innerText = '⏳ отправляю...';
+            const userMessage = `<b>📬 Новая заявка с сайта</b>\n👤 Имя: ${name}\n📞 Контакт: ${contact}\n💬 Сообщение: ${messageText}`;
+            await sendTelegramMessage(userMessage);
+            statusMsg.innerText = '✅ спасибо! я свяжусь с тобой в ближайшее время.';
+            form.reset();
+        });
+    }
+
+    // Проекты
+    const projects = [
+        { name: "Автокликер", desc: "настраиваемая кнопка, интервал, лимит кликов, горячие клавиши. работает фоном.", tags: ["C++", "WinAPI"] },
+        { name: "Генератор паролей", desc: "длина, спецсимволы, цифры, заглавные. копирование в буфер.", tags: ["C++", "консоль"] }
+    ];
+    const container = document.getElementById('projectsGrid');
+    if (container) {
+        projects.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+                <h3 class="project-title">${p.name}</h3>
+                <p class="project-desc">${p.desc}</p>
+                <div class="project-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
+</script>
+</body>
+</html>
